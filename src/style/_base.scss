@@ -1,0 +1,90 @@
+#root,
+body,
+html {
+    padding: 0;
+    margin: 0;
+    overflow-x: inherit;
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+}
+
+.white-bg{
+    background: var(--light-color) !important;
+}
+
+.width-100px {
+    width:100px;
+}
+
+#root {
+    header {
+        background-size: 100vw 100vh;
+    }
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.ButtonsPanel {
+    display: flex;
+    justify-content: space-around;
+}
+
+#root {
+    .size-48 {
+        font-size: 32px;
+    }
+
+    nav {
+        strong {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        ul {
+            margin: 0 0 0 auto;
+            li {
+                font-size: 1.5rem;
+                display: flex;
+                border-radius: 1rem;
+            }
+        }
+    }
+}
+
+.ButtonsPanel {
+    .RoundButton {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        padding: 0;
+        &:hover span {
+            color: black;
+        }
+    }
+}
+
+:root {
+    --timer-font-color: #ff9200;
+    --timer-font-family: Orbitron, serif;
+}
+
+//https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
