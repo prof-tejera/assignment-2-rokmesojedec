@@ -21,12 +21,12 @@ function App() {
           children-p-y-8"
     >
       <Router>
-        <header className="p-y-0 slide-down-delay-5 fixed full-width z-3 top gradient-code-secondary shadow-8">
+        <header className="p-y-0 slide-down-delay-0 fixed full-width z-3 top shadow-8">
           <nav className="p-lg-0 nav-flex nav-main typescale-minor-second max-width-center-xxl m-y-1">
-            <h1 className="nowrap text-light" href="index.html">
-              Rok's CSCI E39 Assignment #1
+            <h1 className="nowrap text-dark" href="index.html">
+              Rok's CSCI E39 Assignment #2
             </h1>
-            <ul className="hover-light children-p-2 text-light">
+            <ul className="hover-light children-p-2 text-dark">
               <li>
                 <Link to="/">Timers</Link>
               </li>

@@ -67,7 +67,7 @@ export class Interval {
     }
 
     get rounds() { return this._rounds; }
-    set rounds(value) { this._rounds = value; this._totalTime = null }
+    set rounds(value) { this._rounds = value; this._totalTime = null; this.reset() }
 
     get currentTimer() {
         const { _currentTimerIndex: index, timers } = this;
@@ -80,22 +80,40 @@ export class Interval {
     }
 
     start(initializeTime = true) {
-        if (this.currentRound === 0) { 
+        if (this.currentRound === 0) {
             this._completedRounds = 0;
-            this.timers.forEach(timer=>timer.reset());
-         }
+            this.timers.forEach(timer => timer.reset());
+        }
         if (this.currentTimer) this.currentTimer.start(initializeTime);
     }
 
-    clear() {
-        this.timers.forEach(timer => timer.clear());
+    clear(triggerOnFinished = true) {
+        this.timers.forEach(timer => timer.clear(triggerOnFinished));
+    }
+
+    reset() {
+        this.timers.forEach(timer => {
+            timer.clear(false);
+            timer.reset();
+        })
+        this._totalTime = null;
+        this._roundTime = null;
+        this._completedRounds = 0;
+        this._currentTimerIndex = 0;
     }
 
     clean() {
-
+        this.timers.forEach(timer => {
+            timer.clean();
+        });
     }
 
-    pause() {
-        if (this.currentTimer) this.currentTimer.clear(false);
+    finishCurrent() {
+        if (this.currentRound === 0) this.reset();
+        else if (this.currentTimer) this.currentTimer.finishRound();
     }
+
+    // pause() {
+    //     if (this.currentTimer) this.currentTimer.clear(false);
+    // }
 }

@@ -5,7 +5,7 @@ const Button = (props) => {
   const { disabled, onButtonClick, children, tooltip, className } = props;
   return <button
     data-tooltip-bottom={tooltip}
-    className={['btn bold flat RoundButton', className].join(" ")}
+    className={['btn RoundButton flat', className].join(" ")}
     disabled={disabled}
     onClick={e => onButtonClick(e.target.value)}>
     {children}
@@ -24,7 +24,7 @@ Button.propTypes = {
 Button.defaultProps = {
   children: "Button",
   disabled: false,
-  className: "primary bold raised",
+  className: "primary",
   tooltip: null,
   onButtonClick: () => { }
 }

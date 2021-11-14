@@ -5,7 +5,7 @@ import './ProgressCircle.scss';
 class ProgressCircle extends Component {
     render() {
         const { progress, className,  children, size, thickness } = this.props;
-        return <div className={[`size-${size} shadow-6`, `thickness-${thickness}`, 'ProgressCircle', className].join(" ")}>
+        return <div className={[`size-${size}`, `thickness-${thickness}`, 'ProgressCircle', className].join(" ")}>
             <div className={['overlay', "progress-" + progress].join(" ")}>
                 <div className={['InnerCircle'].join(" ")}>
                     {children}
@@ -25,7 +25,7 @@ ProgressCircle.propTypes = {
 ProgressCircle.defaultProps = {
     progress: 0,
     className: "embedded",
-    thickness: "xl",
+    thickness: "sm",
     size: "lg"
 }
 

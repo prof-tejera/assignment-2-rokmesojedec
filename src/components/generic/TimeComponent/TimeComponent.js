@@ -6,7 +6,9 @@ import './TimeComponent.scss';
 
 class TimeComponent extends Component {
     render() {
-        const { prependZero, value, label, className, showColon, readOnly } = this.props;
+        
+        const { prependZero, value, label, className, 
+                showColon, readOnly, onValueChange } = this.props;
         
         // Create CSS class string from array
         const classList = ['time-component', 
@@ -17,7 +19,6 @@ class TimeComponent extends Component {
                             .join(" ");
 
         let TimeDisplay = null;
-
         if (readOnly)
             /* Static - non-editable part of component. Only shows when readOnly is set to true*/
             TimeDisplay = <div>
@@ -25,7 +26,7 @@ class TimeComponent extends Component {
             <span className={'timer-font' + (value === 0 ? ' zero' : '')}>{value}</span></div>;
         else 
             /* Editable part of component, shown when readOnly is false */
-            TimeDisplay = <div><Input value={value}></Input></div>;
+            TimeDisplay = <div><Input value={value} title={label} onValueChange={e => onValueChange(e) }></Input></div>;
 
         return <div className={classList}>
             { TimeDisplay }
@@ -40,7 +41,8 @@ TimeComponent.propTypes = {
     label: PropTypes.string,
     className: PropTypes.string,
     showColon: PropTypes.bool,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    onValueChange: PropTypes.func
 }
 
 TimeComponent.defaultProps = {
@@ -49,7 +51,8 @@ TimeComponent.defaultProps = {
     label: null,
     className: null,
     showColon: false,
-    readOnly: true
+    readOnly: true,
+    onValueChange: ()=>{}
 }
 
 export default TimeComponent;

@@ -7,19 +7,20 @@ html {
     height: 100%;
 }
 
-body{
+body {
     height: 100%;
     margin: 0;
     background-repeat: no-repeat !important;
     background-attachment: fixed !important;
+    background-color: #e0e0e0;
 }
 
-.white-bg{
+.white-bg {
     background: var(--light-color) !important;
 }
 
 .width-100px {
-    width:100px;
+    width: 100px;
 }
 
 #root {
@@ -34,7 +35,7 @@ body{
 
 .ButtonsPanel {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 #root {
@@ -59,21 +60,56 @@ body{
     }
 }
 
-.ButtonsPanel {
+:root {
+    --timer-font-color: #ff9200;
+    --timer-font-family: Orbitron, serif;
+}
+
+
+
+// Generated with https://neumorphism.io/#ededed
+.timer {
+    background: $neu-bg;
+    border-radius: 50%;
+    // & > .overlay{
+    //     box-shadow:;
+    // }
+    box-shadow: 20px 20px 60px #bebebe,  -20px -20px 60px #ffffff;
+}
+
+
+// Generated with https://neumorphism.io/#ededed
+.tiny-timer {
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    .InnerCircle{
+        background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    }
+    box-shadow: 11px 11px 21px #d0d0d0, -11px -11px 21px #f0f0f0;
+}
+
+.buttons-panel {
+    display: flex;
+    justify-content: space-between;
+    margin: 5rem auto 0 auto;
+    width: 400px;
+    background: #e0e0e0;
+    border-radius: 25px;
+    box-shadow: inset 11.41px 11.41px 15px #D4D4D4, inset -11.41px -11.41px 15px #ECECEC;
+    padding: 2.5rem 5rem;
     .RoundButton {
         height: 3rem;
         width: 3rem;
         border-radius: 50%;
         padding: 0;
         &:hover span {
-            color: black;
+            color: white;
         }
     }
-}
 
-:root {
-    --timer-font-color: #ff9200;
-    --timer-font-family: Orbitron, serif;
+    .check-green{
+        color: var(--success-color);
+    }
 }
 
 //https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp

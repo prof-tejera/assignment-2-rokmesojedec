@@ -11,6 +11,7 @@ const timer = new Timer({
 
 const CountdownProvider = ({ children }) => {
 
+    const [editMode, setEditMode] = useState(false);
     const [paused, setPaused] = useState(false);
     const [progress, setProgress] = useState(10000);
 
@@ -25,15 +26,19 @@ const CountdownProvider = ({ children }) => {
     }, []);
 
     const title = "Countdown";
-    const start = () => { timer.start(false); setPaused(true); }
+    const start = () => { timer.start(false); setPaused(true); setEditMode(false); }
     const pause = () => { timer.clear(); setPaused(false); }
     const reset = () => { timer.reset(); setProgress(timer.percentComplete); }
+    const toggleEditMode = () => { pause(); reset(); setEditMode(!editMode); }
+
     const fastForward = () => { timer.finishRound(); setProgress(timer.percentComplete); }
 
     return <CountdownContext.Provider
         value={{
             paused, 
             progress,
+            editMode,
+            toggleEditMode,
             start,
             pause,
             reset,

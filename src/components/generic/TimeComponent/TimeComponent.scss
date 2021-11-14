@@ -8,22 +8,26 @@
         width: 3rem;
         display: block;
         text-align: center;
-        color: #ff9200;
+        color: #ff9100;
     }
 
     .timer-font {
         font-size: 2rem;
+        
+    }
+    input.timer-font {
+        font-size: 1rem;
     }
 
     .label {
         text-align: center;
-        color: var(--gray-6-color);
-        font-size: 12px;
+        color: var(--dark-color);
+        font-size: 0.85rem;
         font-weight: bold;
     }
 
     .zero {
-        color: var(--light-color);
+        color: white;
     }
 
     position: relative;
@@ -42,7 +46,7 @@
             content: ":";
             display: block;
             font-weight: bold;
-            color: #ffffff;
+            color: black;
         }
     }
 }

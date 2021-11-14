@@ -1,25 +1,40 @@
 import TimersViewProvider, { TimersViewContext } from './context/TimersViewContext';
 import { useContext } from "react";
+import Button from '../components/generic/Button/Button';
+import "./TimersView.scss";
 
 const App = () => {
-  const { timers } = useContext(TimersViewContext);
+  const { timers, timerIndex, setTimerIndex } = useContext(TimersViewContext);
   return (
-    
-    <div className="grid typescale-md-major-third grid-col-span-12 children-slide-down">
-      <div class="col-span-12"></div>
+    <div className="grid typescale-md-major-third grid-col-span-12">
+      <div className="col-span-12 buttons m-t-4">
+        {timers.map((timer, index) => (
+          <Button onButtonClick={() => { setTimerIndex(index) }}
+            className={["weight-500",
+            index === timerIndex ? "primary raised" : "text-dark flat"].join(" ")}
+            key={index}
+          >{timer.title}</Button>
+        ))}
+      </div>
       {timers.map((timer, index) => (
-        <div className="col-lg-span-6 " key={index}>
-          <div className="m-t-2 m-x-0 p-0">
-            {timer.C}
-          </div>
-        </div>
+        <>
+          {index === timerIndex &&
+            <div className="col-span-12" key={index}>
+              <div className="m-t-2 m-x-0 p-0">
+                {timer.C}
+              </div>
+            </div>
+          }
+        </>
       ))}
     </div>
   );
 }
 
-export default () => {
+const AppProvider = () => {
   return (<TimersViewProvider>
     <App />
   </TimersViewProvider>)
 };
+
+export default AppProvider;
