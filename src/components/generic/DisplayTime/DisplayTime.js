@@ -5,13 +5,14 @@ import TimeComponent from '../TimeComponent/TimeComponent';
 import PropTypes from 'prop-types';
 
 const DisplayTime = (props) => {
+  
   const [timeComponents, setTimeComponents] = useState({
     hours: 0,
     minutes: 0,
     seconds: 0,
     milliseconds: 0,
   });
-  
+
   const timerTick = (timer) => {
     setTimeComponents({
       hours: timer.currentHours,
@@ -20,9 +21,10 @@ const DisplayTime = (props) => {
       milliseconds: timer.currentMilliseconds,
     });
   };
-  
+
   useEffect(() => {
-    if (props.timer) { props.timer.pushIntervalFunction(timerTick);
+    if (props.timer) {
+      props.timer.pushIntervalFunction(timerTick);
       timerTick(props.timer);
     }
     return () => {

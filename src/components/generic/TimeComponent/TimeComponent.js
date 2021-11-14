@@ -6,9 +6,8 @@ import './TimeComponent.scss';
 
 class TimeComponent extends Component {
     render() {
-        
         const { prependZero, value, label, className, showColon, readOnly } = this.props;
-
+        
         // Create CSS class string from array
         const classList = ['time-component', 
                             className, 
@@ -17,21 +16,20 @@ class TimeComponent extends Component {
                             .filter(x => typeof x === 'string' && x.length > 0)
                             .join(" ");
 
+        let TimeDisplay = null;
+
+        if (readOnly)
+            /* Static - non-editable part of component. Only shows when readOnly is set to true*/
+            TimeDisplay = <div>
+            {prependZero && value < 10 && <span className='timer-font zero'>0</span>}
+            <span className={'timer-font' + (value === 0 ? ' zero' : '')}>{value}</span></div>;
+        else 
+            /* Editable part of component, shown when readOnly is false */
+            TimeDisplay = <div><Input value={value}></Input></div>;
+
         return <div className={classList}>
-            {/* Static - non-editable part of component. Only shows when readOnly is set to true*/}
-            { readOnly &&  <div>
-                {prependZero && value < 10 &&
-                    <span className='timer-font zero'>0</span>
-                }
-                <span className={'timer-font' + (value === 0 ? ' zero' : '')}>{value}</span></div>
-                }
-            {/* Editable part of component, shown when readOnly is false */}
-            { !readOnly && <div>
-                <Input value={value}></Input>
-            </div> }
-            {label &&
-                <div className="label">{label}</div>
-            }
+            { TimeDisplay }
+            {label && <div className="label">{label}</div> }
         </div>;
     }
 }

@@ -1,68 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import Panel from "./../generic/Panel/Panel";
 import Button from "./../generic/Button/Button";
 import ProgressCircle from "./../generic/ProgressCircle/ProgressCircle";
-import { Timer } from '../../classes/Timer';
-import { Interval } from '../../classes/Interval';
 import TimeComponent from "../generic/TimeComponent/TimeComponent";
 import MatIcon from "../generic/MatIcon";
 import "./Tabata.scss";
+import TabataProvider, { TabataContext } from './context/TabataContext';
+import { PlayPauseButton } from '../../utils/helpers';
 
-const IntervalXY = new Interval({ timers: [
-                                  new Timer({seconds: 5}), 
-                                  new Timer({seconds: 5})], 
-                                  rounds: 3 
-                                });                   
-const [timerA, timerB] = IntervalXY.timers;
+const Tabata = () => {
 
-const Tabata = (props) => {
-
-  const [secondsTimerA, setSecondsTimerA] = useState(0);
-  const [secondsTimerB, setSecondsTimerB] = useState(0);
-  const [progressTimerA, setProgressTimerA] = useState(0);
-  const [progressTimerB, setProgressTimerB] = useState(0);
-  const [progressRound, setRoundProgress] = useState(0);
-  const [currentRound, setRound] = useState(0);
-  const [currentProgress, setProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const updateInterval = () => {
-    setRoundProgress(IntervalXY.roundPercentage);
-    setRound(IntervalXY.currentRound);
-    setProgress(IntervalXY.percentComplete);
-  }
-
-  useEffect(() => {
-
-    timerA.pushIntervalFunction((timer) => {
-      setProgressTimerA(timer.percentComplete);
-      setSecondsTimerA(timer.currentSeconds);
-      updateInterval();
-    })
-
-    timerB.pushIntervalFunction((timer) => {
-      setProgressTimerB(timer.percentComplete);
-      setSecondsTimerB(timer.currentSeconds);
-      updateInterval();
-    });
-
-    IntervalXY.onFinished = () => { setPaused(false); setRound(IntervalXY.currentRound); };
-    updateInterval();
-
-    setProgressTimerA(timerA.percentComplete);
-    setSecondsTimerA(timerA.currentSeconds);
-    setProgressTimerB(timerB.percentComplete);
-    setSecondsTimerB(timerB.currentSeconds);
-    return () => {
-      IntervalXY.pause();  
-    }
-  }, []);
-
-  const start = () => { IntervalXY.start(false); setPaused(true) }
-  const pause = () => { IntervalXY.pause(); setPaused(false) }
-  const reset = () => { }
-  const fastForward = () => { }
-  const { title } = props;
+  const { paused, start, pause, reset, fastForward, title,
+    currentProgress, currentRound, progressRound, progressTimerB,
+    progressTimerA, secondsTimerB, secondsTimerA } = useContext(TabataContext);
 
   return <Panel>
     <ProgressCircle progress={currentProgress}>
@@ -82,17 +32,8 @@ const Tabata = (props) => {
           </ProgressCircle>
         </div>
         <div className="ButtonsPanel">
-          {!paused &&
-            <Button className="text-primary" onButtonClick={start}>
-              <MatIcon>play_arrow</MatIcon>
-            </Button>
-          }
-          {paused &&
-            <Button className="text-danger" onButtonClick={pause}>
-              <MatIcon>pause</MatIcon>
-            </Button>
-          }
-          <Button className="text-warning" onButtonClick={reset}>
+        { PlayPauseButton(paused, start, pause) }          
+        <Button className="text-warning" onButtonClick={reset}>
             <MatIcon>restart_alt</MatIcon>
           </Button>
           <Button className="text-secondary" onButtonClick={fastForward}>
@@ -102,7 +43,10 @@ const Tabata = (props) => {
       </div>
     </ProgressCircle>
   </Panel>;
-
 }
 
-export default Tabata;
+export default () => {
+  return (<TabataProvider>
+    <Tabata />
+  </TabataProvider>)
+};

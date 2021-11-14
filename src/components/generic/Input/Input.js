@@ -11,7 +11,7 @@ class Input extends Component {
       min={min}
       max={max}
       disabled={disabled}
-      onChange={onChange}></input>;
+      onChange={e => onChange(e.target.value)}></input>;
   }
 }
 Input.propTypes = {
@@ -30,9 +30,7 @@ Input.defaultProps = {
   type: "number",
   disabled: false,
   min: 0,
-  onChange: ()=>{
-    console.log("onChange firing");
-  }
+  onChange: ()=>{ }
 }
 
 export default Input;

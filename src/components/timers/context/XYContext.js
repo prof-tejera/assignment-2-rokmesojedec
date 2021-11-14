@@ -1,48 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { Timer } from '../../../classes/Timer';
 
-export const CountdownContext = React.createContext({});
+export const XYContext = React.createContext({});
 
 const timer = new Timer({
-    minutes: 0,
-    seconds: 10,
-    tickSize: Timer.TIME_ENUM.MILLISECOND * 52,
+    seconds: 20,
 });
 
-const CountdownProvider = ({ children }) => {
+const XYProvider = ({ children }) => {
 
+    const [progress, setProgress] = useState(0);
+    const [roundProgress, setRoundProgress] = useState(0);
+    const [round, setRound] = useState(0);
     const [paused, setPaused] = useState(false);
-    const [progress, setProgress] = useState(10000);
 
     useEffect(() => {
-        timer.pushIntervalFunction((timer) => { setProgress(timer.percentComplete); })
+
+        const setTimerState = (timer) => {
+            setProgress(timer.percentComplete);
+            setRoundProgress(timer.roundPercentComplete);
+            setRound(timer.currentRound);
+        };
+
+        timer.pushIntervalFunction(setTimerState);
         timer.onFinished = () => { setPaused(false); };
-        setProgress(timer.percentComplete);
+        setTimerState(timer);
         return () => {
             timer.clear();
             timer.clean();
         }
     }, []);
 
-    const title = "Countdown";
     const start = () => { timer.start(false); setPaused(true); }
     const pause = () => { timer.clear(); setPaused(false); }
     const reset = () => { timer.reset(); setProgress(timer.percentComplete); }
     const fastForward = () => { timer.finishRound(); setProgress(timer.percentComplete); }
+    const title = "XY";
 
-    return <CountdownContext.Provider
+    return <XYContext.Provider
         value={{
-            paused, 
+            paused,
             progress,
             start,
             pause,
             reset,
             fastForward,
             timer,
-            title
+            title,
+            round,
+            roundProgress
         }}>
         {children}
-    </CountdownContext.Provider>
+    </XYContext.Provider>
 }
 
-export default CountdownProvider;
+export default XYProvider;

@@ -5,28 +5,19 @@ import DisplayTime from "./../generic/DisplayTime/DisplayTime";
 import ProgressCircle from "./../generic/ProgressCircle/ProgressCircle";
 import MatIcon from '../generic/MatIcon';
 import CountdownProvider, { CountdownContext } from './context/CountdownContext';
+import { PlayPauseButton } from '../../utils/helpers';
 
 const Countdown = () => {
 
   const { paused, progress, start,
-    pause, reset, fastForward,
-    timer, title } = useContext(CountdownContext);
+    pause, reset, fastForward, timer } = useContext(CountdownContext);
 
   return <Panel>
     <ProgressCircle progress={progress} thickness="xl">
       <div>
         <DisplayTime className="m-t-3" timer={timer}></DisplayTime>
         <div className="ButtonsPanel">
-          {!paused &&
-            <Button className="text-primary" onButtonClick={start}>
-              <MatIcon>play_arrow</MatIcon>
-            </Button>
-          }
-          {paused &&
-            <Button className="text-danger" onButtonClick={pause}>
-              <MatIcon>pause</MatIcon>
-            </Button>
-          }
+          {PlayPauseButton(paused, start, pause)}
           <Button className="text-warning" onButtonClick={reset}>
             <MatIcon>restart_alt</MatIcon>
           </Button>
@@ -38,7 +29,6 @@ const Countdown = () => {
     </ProgressCircle>
   </Panel>;
 }
-
 
 export default () => {
   return (<CountdownProvider>

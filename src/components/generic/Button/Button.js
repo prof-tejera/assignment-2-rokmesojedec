@@ -7,8 +7,8 @@ const Button = (props) => {
     data-tooltip-bottom={tooltip}
     className={['btn bold flat RoundButton', className].join(" ")}
     disabled={disabled}
-    onClick={onButtonClick}>
-    {children ? children : "Button"}
+    onClick={e => onButtonClick(e.target.value)}>
+    {children}
   </button>;
 }
 
@@ -22,8 +22,9 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
+  children: "Button",
   disabled: false,
   className: "primary bold raised",
   tooltip: null,
-  onButtonClick: () => { console.log("button clicked!"); }
+  onButtonClick: () => { }
 }
