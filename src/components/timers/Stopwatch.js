@@ -15,23 +15,24 @@ const Stopwatch = () => {
   return <Panel>
     <ProgressCircle progress={progress} thickness="sm" className="timer">
       <div>
-        <DisplayTime timer={timer} readOnly={!editMode}></DisplayTime>
+        <DisplayTime timer={timer} readOnly={!editMode} className="panel-morph p-2"></DisplayTime>
       </div>
     </ProgressCircle>
     <div className="buttons-panel">
       {PlayPauseButton(paused, start, pause)}
-      <Button className="text-dark" onButtonClick={reset}>
+      <Button className="" onButtonClick={reset}>
         <MatIcon>restart_alt</MatIcon>
       </Button>
-      <Button className="text-dark" onButtonClick={toggleEditMode}>
-        <MatIcon>{editMode ? "check" : "timer"}</MatIcon>
+      <Button className="" onButtonClick={toggleEditMode}>
+        <MatIcon>{editMode ? "edit_off" : "edit"}</MatIcon>
       </Button>
     </div>
   </Panel>;
 }
-
-export default () => {
+const StopwatchTimer = () => {
   return (<StopwatchProvider>
     <Stopwatch />
   </StopwatchProvider>)
 };
+
+export default StopwatchTimer;

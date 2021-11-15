@@ -66,7 +66,7 @@ const TabataProvider = ({ children }) => {
     const start = () => { IntervalTabata.start(false); setPaused(true); setEditMode(false); };
     const pause = () => { IntervalTabata.clear(false); setPaused(false); };
     const reset = () => { pause(); IntervalTabata.reset(); updateInterval(); };
-    const fastForward = () => { IntervalTabata.finishCurrent(); }
+    const fastForward = () => { IntervalTabata.finishCurrent(); if(!paused) pause(); }
     const toggleEditMode = () => { pause(); IntervalTabata.reset(); setEditMode(!editMode); };
     const updateRound = (value) => { IntervalTabata.rounds = value; updateInterval(); }
 

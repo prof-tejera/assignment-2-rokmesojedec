@@ -27,21 +27,22 @@ const XY = () => {
     </ProgressCircle>
     <div className="buttons-panel">
           {PlayPauseButton(paused, start, pause)}
-          <Button className="text-dark" onButtonClick={reset}>
+          <Button  onButtonClick={reset}>
             <MatIcon>restart_alt</MatIcon>
           </Button>
-          <Button className="text-dark" onButtonClick={fastForward}>
+          <Button  onButtonClick={fastForward}>
             <MatIcon>fast_forward</MatIcon>
           </Button>
-          <Button className="text-dark" onButtonClick={toggleEditMode}>
-            <MatIcon>{editMode ? "check" : "timer"}</MatIcon>
+          <Button  onButtonClick={toggleEditMode}>
+            <MatIcon>{editMode ? "edit_off" : "edit"}</MatIcon>
           </Button>
         </div>
   </Panel>;
 }
-
-export default () => {
+const XYTimer =() => {
   return (<XYProvider>
     <XY />
   </XYProvider>)
 };
+
+export default XYTimer;

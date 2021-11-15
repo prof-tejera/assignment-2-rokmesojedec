@@ -8,11 +8,11 @@ import { useEffect, useRef, useState } from 'react';
 
 export const PlayPauseButton = (paused, start, pause) => {
     if (!paused) {
-        return <Button className="text-dark" onButtonClick={start}>
+        return <Button onButtonClick={start} tooltip="Play">
             <MatIcon>play_arrow</MatIcon>
         </Button>;
     }
-    return <Button className="text-danger" onButtonClick={pause}>
+    return <Button onButtonClick={pause} tooltip="Pause">
         <MatIcon>pause</MatIcon>
     </Button>
 }

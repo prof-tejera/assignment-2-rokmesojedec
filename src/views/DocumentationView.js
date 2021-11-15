@@ -4,6 +4,7 @@ import DocumentComponent from "../components/documentation/DocumentComponent";
 import Button from "../components/generic/Button/Button";
 import DisplayTime from "../components/generic/DisplayTime/DisplayTime";
 import Input from "../components/generic/Input/Input";
+import MatIcon from "../components/generic/MatIcon";
 import Panel from "../components/generic/Panel/Panel";
 import ProgressBar from "../components/generic/ProgressBar/ProgressBar";
 import ProgressCircle from "../components/generic/ProgressCircle/ProgressCircle";
@@ -35,21 +36,23 @@ class Documentation extends React.Component {
           <h1 className="text-center">Documentation</h1>
           <DocumentComponent
             title="<Button></Button>"
-            component={<Button />}
+            component={<Button className="p-x-2 p-y-1" />}
             propDocs={[
               unpack(["disabled", "disables / enables button", "bool", "false"]),
-              unpack(["className", "sets HTML class name", "string", "primary bold raised"]),
+              unpack(["className", "sets HTML class name", "string", "''"]),
               unpack(["tooltip", "adds on hover tooltip", "string", "null"]),
-              unpack(["onClick", "on click method", "func", "()=>{ console.log('button clicked!'); }"]),
+              unpack(["onClick", "on click method", "func", "() => { }"]),
             ]}
           />
           <DocumentComponent
             title="<DisplayTime />"
-            component={<DisplayTime className="dark" />}
+            component={<DisplayTime />}
             propDocs={[
-              unpack(["duration", "duration object", "Timer", "new Timer(0)"]),
+              unpack(["timer", "Timer object", "Timer", "new Timer(0)"]),
               unpack(["className", "sets HTML class name", "string", "null"]),
-              unpack(["readOnly", "enable user editing of values when set to true", "bool", "true"])
+              unpack(["readOnly", "enable user editing of values when set to true", "bool", "true"]),
+              unpack(["triggerOnFinishedOnUnmount", "disabled or enabled triggering timer object onFinished event on component unmount", "bool", "true"]),
+              unpack(["showComponents", "disable / enable individual time-components", "object", "{ hours: true, minutes: true, seconds: true, milliseconds: true }"])
             ]}
           />
           <DocumentComponent
@@ -61,7 +64,7 @@ class Documentation extends React.Component {
               unpack(["disabled", "disables / enables input", "bool", "false"]),
               unpack(["min", "sets HTML min attribute", "number", "0"]),
               unpack(["max", "sets HTML max attribute", "number", "N/A"]),
-              unpack(["onChange", "onChange handler function. Fires when input is changed", "func", "()=>{ console.log(\"onChange firing\");}"])
+              unpack(["onValueChange", "onChange handler function. Fires when input is changed", "func", "()=>{ console.log(\"onChange firing\");}"])
             ]}
           />
           <DocumentComponent
@@ -73,7 +76,7 @@ class Documentation extends React.Component {
           />
           <DocumentComponent
             title="<ProgressCircle></ProgressCircle>"
-            component={<ProgressCircle size="sm" progress={4534} className="embedded text-light text-center">Hello Circle!</ProgressCircle>}
+            component={<ProgressCircle size="sm" progress={4534} className="text-center">Hello Circle!</ProgressCircle>}
             propDocs={[
               unpack(["progress", "sets progress amount", "number between 0 and 10000 where 10000 is 100%", "0"]),
               unpack(["className", "sets HTML class name", "string", "null"]),
@@ -93,13 +96,21 @@ class Documentation extends React.Component {
           />
           <DocumentComponent
             title="<TimeComponent />"
-            component={<TimeComponent className="shadow-6 text-center dark" label="label" prependZero={true} value={1} />}
+            component={<TimeComponent className="shadow-6 text-center" label="label" prependZero={true} value={1} />}
             propDocs={[
               unpack(["value", "sets value shown in time component", "number", "0"]),
               unpack(["prependZero", "prepends zero to value if value lower than 10 when in readonly mode", "bool", "false"]),
               unpack(["showColon", "adds ':' to the left of component", "bool", "false"]),
               unpack(["label", "adds label under the value", "string", "null"]),
-              unpack(["readOnly", "when set to false, value can be changed by user", "bool", "true"])
+              unpack(["readOnly", "when set to false, value can be changed by user", "bool", "true"]),
+              unpack(["onValueChange", "function which is triggered when input value changes", "func", "()=>{}"])
+            ]}
+          />
+          <DocumentComponent
+            title="<MatIcon></MatIcon>"
+            component={<MatIcon>computer</MatIcon>}
+            propDocs={[
+              unpack(["children", "add display material icon string into this component to display it", "string", "null"]),
             ]}
           />
         </div>

@@ -24,7 +24,7 @@ ProgressCircle.propTypes = {
 
 ProgressCircle.defaultProps = {
     progress: 0,
-    className: "embedded",
+    className: null,
     thickness: "sm",
     size: "lg"
 }

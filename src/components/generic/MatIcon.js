@@ -1,6 +1,6 @@
 const MatIcon = (props) => {
   const { children } = props;
-  return  <span className="material-icons size-48"> {children}</span>;
+  return  <span className="material-icons-outlined size-32">{children}</span>;
 }
 export default MatIcon;
 

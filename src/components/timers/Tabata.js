@@ -1,4 +1,4 @@
-import { useContext, useCallback } from "react";
+import { useContext } from "react";
 import Panel from "./../generic/Panel/Panel";
 import Button from "./../generic/Button/Button";
 import ProgressCircle from "./../generic/ProgressCircle/ProgressCircle";
@@ -56,21 +56,23 @@ const Tabata = () => {
     </ProgressCircle>
     <div className="buttons-panel">
       {PlayPauseButton(paused, start, pause)}
-      <Button className="text-dark" onButtonClick={reset}>
+      <Button onButtonClick={reset}>
         <MatIcon>restart_alt</MatIcon>
       </Button>
-      <Button className="text-dark" onButtonClick={fastForward}>
+      <Button onButtonClick={fastForward}>
         <MatIcon>fast_forward</MatIcon>
       </Button>
-      <Button className={editMode? "text-success" : "text-dark"}onButtonClick={toggleEditMode}>
-        <MatIcon>{editMode ? "check" : "timer"}</MatIcon>
+      <Button className={editMode ? "text-success" : ""} onButtonClick={toggleEditMode}>
+        <MatIcon>{editMode ? "edit_off" : "edit"}</MatIcon>
       </Button>
     </div>
   </Panel>;
 }
 
-export default () => {
+const TabataTimer = () => {
   return (<TabataProvider>
     <Tabata />
   </TabataProvider>)
 };
+
+export default TabataTimer; 

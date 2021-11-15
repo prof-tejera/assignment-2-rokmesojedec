@@ -2,6 +2,10 @@
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    .timer-font {
+        font-size: 2rem;
+    }
+
     &.small {
         .time-component {
             width: 2rem;

@@ -8,6 +8,7 @@
     color: var(--timer-font-color);
     width: 3rem;
     text-align: center;
+    font-family: var(--primary-font) ;
 
     &:focus{
         outline: none;

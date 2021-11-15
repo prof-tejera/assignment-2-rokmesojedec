@@ -112,8 +112,4 @@ export class Interval {
         if (this.currentRound === 0) this.reset();
         else if (this.currentTimer) this.currentTimer.finishRound();
     }
-
-    // pause() {
-    //     if (this.currentTimer) this.currentTimer.clear(false);
-    // }
 }

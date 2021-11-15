@@ -10,8 +10,8 @@ const App = () => {
       <div className="col-span-12 buttons m-t-4">
         {timers.map((timer, index) => (
           <Button onButtonClick={() => { setTimerIndex(index) }}
-            className={["weight-500",
-            index === timerIndex ? "primary raised" : "text-dark flat"].join(" ")}
+            className={["weight-500 p-x-3 p-y-1 bold",
+            index === timerIndex ? "selected text-dark" : ""].join(" ")}
             key={index}
           >{timer.title}</Button>
         ))}

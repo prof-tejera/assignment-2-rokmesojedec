@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const Button = (props) => {
   const { disabled, onButtonClick, children, tooltip, className } = props;
   return <button
-    data-tooltip-bottom={tooltip}
-    className={['btn RoundButton flat', className].join(" ")}
+    data-tip={tooltip}
+    className={['app-button round-button', className].join(" ")}
     disabled={disabled}
     onClick={e => onButtonClick(e.target.value)}>
     {children}
@@ -24,7 +24,7 @@ Button.propTypes = {
 Button.defaultProps = {
   children: "Button",
   disabled: false,
-  className: "primary",
+  className: "",
   tooltip: null,
   onButtonClick: () => { }
 }
