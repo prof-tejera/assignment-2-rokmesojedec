@@ -65,8 +65,6 @@ body {
     --timer-font-family: Orbitron, serif;
 }
 
-
-
 // Generated with https://neumorphism.io/#ededed
 .timer {
     background: $neu-bg;
@@ -74,18 +72,17 @@ body {
     // & > .overlay{
     //     box-shadow:;
     // }
-    box-shadow: 20px 20px 60px #bebebe,  -20px -20px 60px #ffffff;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
 }
-
 
 // Generated with https://neumorphism.io/#ededed
 .tiny-timer {
-    border-radius: 50%;
-    background: linear-gradient(145deg, #f0f0f0, #cacaca);
-    .InnerCircle{
-        background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    border-radius: 150px;
+    background: #e0e0e0;
+
+    .InnerCircle {
+        box-shadow: inset 11px 11px 22px #d0d0d0, inset -11px -11px 22px #f0f0f0;
     }
-    box-shadow: 11px 11px 21px #d0d0d0, -11px -11px 21px #f0f0f0;
 }
 
 .buttons-panel {
@@ -95,7 +92,7 @@ body {
     width: 400px;
     background: #e0e0e0;
     border-radius: 25px;
-    box-shadow: inset 11.41px 11.41px 15px #D4D4D4, inset -11.41px -11.41px 15px #ECECEC;
+    box-shadow: inset 11.41px 11.41px 15px #d4d4d4, inset -11.41px -11.41px 15px #ececec;
     padding: 2.5rem 5rem;
     .RoundButton {
         height: 3rem;
@@ -107,7 +104,7 @@ body {
         }
     }
 
-    .check-green{
+    .check-green {
         color: var(--success-color);
     }
 }
