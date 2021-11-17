@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip';
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <ReactTooltip />
+    <ReactTooltip place="bottom" type="info" effect="solid" delayShow={600} />
   </React.StrictMode>,
   document.getElementById('root')
 );

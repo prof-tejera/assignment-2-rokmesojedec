@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Timer } from '../../../classes/Timer';
 import { Interval } from '../../../classes/Interval';
+import ReactTooltip from 'react-tooltip';
 
 export const TabataContext = React.createContext({});
 
@@ -24,6 +25,7 @@ const TabataProvider = ({ children }) => {
     const [currentProgress, setProgress] = useState(0);
     const [paused, setPaused] = useState(false);
     const [editMode, setEditMode] = useState(false);
+    const [isDone, setDone] = useState(false);
 
     const updateInterval = () => {
         setRoundProgress(IntervalTabata.roundPercentage);
@@ -32,7 +34,6 @@ const TabataProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        console.log("interval on mount");
         // push interval functions for workout timer
         timerA.pushIntervalFunction((timer) => {
             setProgressTimerA(timer.percentComplete);
@@ -50,6 +51,7 @@ const TabataProvider = ({ children }) => {
         // set Pause state when interval object is done
         IntervalTabata.onFinished = () => { 
             setPaused(false); setRound(IntervalTabata.currentRound); 
+            setDone(true);
         };
         
         updateInterval();
@@ -57,18 +59,30 @@ const TabataProvider = ({ children }) => {
         setSecondsTimerA(timerA.currentSeconds);
         setProgressTimerB(timerB.percentComplete);
         setSecondsTimerB(timerB.currentSeconds);
+
+
+        // Needed to keep tooltips after component mount/unmount
+        ReactTooltip.rebuild();
+
         return () => {
+            // stop and remove intervals on unmount
             IntervalTabata.clear(false);
             IntervalTabata.clean();
         }
     }, []);
 
-    const start = () => { IntervalTabata.start(false); setPaused(true); setEditMode(false); };
+    useEffect(()=>{
+        // Needed to keep tooltips after component mount/unmount
+        ReactTooltip.rebuild();
+    },[isDone])
+
+    const start = () => { IntervalTabata.start(false); setPaused(true); setEditMode(false); setDone(false); };
     const pause = () => { IntervalTabata.clear(false); setPaused(false); };
     const reset = () => { pause(); IntervalTabata.reset(); updateInterval(); };
     const fastForward = () => { IntervalTabata.finishCurrent(); if(!paused) pause(); }
     const toggleEditMode = () => { pause(); IntervalTabata.reset(); setEditMode(!editMode); };
     const updateRound = (value) => { IntervalTabata.rounds = value; updateInterval(); }
+    const runAgain = () => { reset(); setDone(false); }
 
     const title = "Tabata";
 
@@ -81,6 +95,7 @@ const TabataProvider = ({ children }) => {
             fastForward,
             toggleEditMode,
             updateRound,
+            runAgain,
             editMode,
             IntervalTabata,
             title,
@@ -92,7 +107,8 @@ const TabataProvider = ({ children }) => {
             secondsTimerB,
             secondsTimerA,
             timerA,
-            timerB
+            timerB,
+            isDone
         }}>
         {children}
     </TabataContext.Provider>

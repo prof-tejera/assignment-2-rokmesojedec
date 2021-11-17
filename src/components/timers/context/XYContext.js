@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Timer } from '../../../classes/Timer';
+import ReactTooltip from 'react-tooltip';
 
 export const XYContext = React.createContext({});
 
@@ -14,6 +15,7 @@ const XYProvider = ({ children }) => {
     const [roundProgress, setRoundProgress] = useState(0);
     const [round, setRound] = useState(0);
     const [paused, setPaused] = useState(false);
+    const [isDone, setDone] = useState(false);
 
     useEffect(() => {
         const setTimerState = (timer) => {
@@ -22,20 +24,33 @@ const XYProvider = ({ children }) => {
             setRound(timer.currentRound);
         };
         timer.pushIntervalFunction(setTimerState);
-        timer.onFinished = () => { setPaused(false); };
+        timer.onFinished = () => { setPaused(false); if (timer.isTimerComplete) setDone(true); };
         setTimerState(timer);
+
+        // Needed to keep tooltips after component mount/unmount
+        ReactTooltip.rebuild();
+
         return () => {
+            // stop and remove intervals on unmount
             timer.clear();
             timer.clean();
         }
     }, []);
 
-    const start = () => { timer.start(false); setPaused(true); setEditMode(false); }
+
+    useEffect(()=>{
+        // Needed to keep tooltips after component mount/unmount
+        ReactTooltip.rebuild();
+    },[isDone])
+
+    const start = () => { timer.start(false); setPaused(true); setEditMode(false); setDone(false); }
     const pause = () => { timer.clear(); setPaused(false); }
     const reset = () => { timer.reset(); setProgress(timer.percentComplete); }
     const toggleEditMode = () => { pause(); reset(); setEditMode(!editMode); }
     const fastForward = () => { timer.finishRound(); setProgress(timer.percentComplete); timer.start(false); }
     const updateRound = (value) => { timer.rounds = value; setRound(timer.currentRound); }
+    const runAgain = () => { reset(); setDone(false); }
+
     const title = "XY";
 
     return <XYContext.Provider
@@ -52,7 +67,9 @@ const XYProvider = ({ children }) => {
             title,
             round,
             updateRound,
-            roundProgress
+            runAgain,
+            roundProgress,
+            isDone
         }}>
         {children}
     </XYContext.Provider>

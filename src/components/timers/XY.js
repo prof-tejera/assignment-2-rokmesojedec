@@ -1,17 +1,15 @@
 import { useContext } from "react";
 import Panel from "./../generic/Panel/Panel";
-import Button from "./../generic/Button/Button";
 import DisplayTime from "./../generic/DisplayTime/DisplayTime";
 import ProgressCircle from "./../generic/ProgressCircle/ProgressCircle";
 import TimeComponent from "../generic/TimeComponent/TimeComponent";
-import MatIcon from "../generic/MatIcon";
-import { PlayPauseButton } from '../../utils/helpers';
+import { ButtonsPanel, CongratsPanel } from '../../utils/helpers';
 import XYProvider, { XYContext } from './context/XYContext';
 
 const XY = () => {
 
-  const { paused, progress, start, pause, editMode, toggleEditMode, updateRound,
-    reset, fastForward, timer, round, roundProgress } = useContext(XYContext);
+  const { paused, progress, start, pause, editMode, toggleEditMode, updateRound, runAgain, 
+    reset, fastForward, timer, round, roundProgress, isDone } = useContext(XYContext);
 
   return <Panel>
     <ProgressCircle progress={progress} className="timer" size="xl" thickness="sm">
@@ -25,21 +23,12 @@ const XY = () => {
 
       </div>
     </ProgressCircle>
-    <div className="buttons-panel">
-          {PlayPauseButton(paused, start, pause)}
-          <Button  onButtonClick={reset}>
-            <MatIcon>restart_alt</MatIcon>
-          </Button>
-          <Button  onButtonClick={fastForward}>
-            <MatIcon>fast_forward</MatIcon>
-          </Button>
-          <Button  onButtonClick={toggleEditMode}>
-            <MatIcon>{editMode ? "edit_off" : "edit"}</MatIcon>
-          </Button>
-        </div>
+    {!isDone && ButtonsPanel(paused, start, pause, reset, fastForward, toggleEditMode, editMode)}
+
+    { CongratsPanel(isDone, runAgain) }
   </Panel>;
 }
-const XYTimer =() => {
+const XYTimer = () => {
   return (<XYProvider>
     <XY />
   </XYProvider>)

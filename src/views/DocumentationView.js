@@ -64,7 +64,7 @@ class Documentation extends React.Component {
               unpack(["disabled", "disables / enables input", "bool", "false"]),
               unpack(["min", "sets HTML min attribute", "number", "0"]),
               unpack(["max", "sets HTML max attribute", "number", "N/A"]),
-              unpack(["onValueChange", "onChange handler function. Fires when input is changed", "func", "()=>{ console.log(\"onChange firing\");}"])
+              unpack(["onValueChange", "onChange handler function. Fires when input is changed", "func", "()=>{ }"])
             ]}
           />
           <DocumentComponent

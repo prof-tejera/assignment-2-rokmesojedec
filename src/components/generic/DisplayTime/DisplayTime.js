@@ -28,7 +28,7 @@ const DisplayTime = function (props) {
         props.timer.clean();
       }
     };
-  }, [props.timer, props.triggerOnFinishedOnUnmount]);
+  }, [props.timer, props.triggerOnFinishedOnUnmount]); 
 
   const { className, readOnly, showComponents } = props;
 

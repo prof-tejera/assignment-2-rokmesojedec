@@ -8,16 +8,40 @@ import { useEffect, useRef, useState } from 'react';
 
 export const PlayPauseButton = (paused, start, pause) => {
     if (!paused) {
-        return <Button onButtonClick={start} tooltip="Play">
+        return <Button onButtonClick={start} tooltip="Start">
             <MatIcon>play_arrow</MatIcon>
         </Button>;
     }
-    return <Button onButtonClick={pause} tooltip="Pause">
+    return <Button onButtonClick={pause} tooltip="Stop">
         <MatIcon>pause</MatIcon>
     </Button>
 }
 
+export const ButtonsPanel = (paused, start, pause, reset, fastForward, toggleEdit, editMode) => {
+    return <div className="buttons-panel">
+        { PlayPauseButton(paused, start, pause)}
+        <Button onButtonClick={reset} tooltip="Reset" ><MatIcon>restart_alt</MatIcon></Button>
+        <Button onButtonClick={fastForward} tooltip="Finish" >
+            <MatIcon>fast_forward</MatIcon>
+        </Button>
+        <Button onButtonClick={toggleEdit} tooltip={editMode ? "Exit Edit" : "Edit"}>
+            <MatIcon>{editMode ? "edit_off" : "edit"}</MatIcon>
+        </Button>
+    </div>
+}
 
+export const CongratsPanel = (show, startFunc) => {
+    if (show)
+        return <div className="congrats">
+            Well done! 💪
+            <Button onButtonClick={startFunc} className="m-l-2 p-1">
+                <MatIcon>restart_alt</MatIcon> Run Again
+            </Button>
+        </div>
+    return;
+}
+
+// Copied from lecture
 export const usePrevious = value => {
     const ref = useRef(value);
 
@@ -28,6 +52,7 @@ export const usePrevious = value => {
     return ref.current;
 };
 
+// Copied from lecture
 export const usePersistedState = (key, initialValue) => {
     const [storedValue, setStoredValue] = useState(() => {
         try {

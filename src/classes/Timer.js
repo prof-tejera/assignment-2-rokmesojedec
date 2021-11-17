@@ -53,6 +53,7 @@ export class Timer {
         this.onFinished = onFinished;
         this.stopWatchMode = stopWatchMode;
         this._isRunning = false;
+        this._isDone = false;
 
         // defines getters and setters for time components
         ["years", "months", "days", "hours", "minutes", "seconds", "milliseconds"].forEach(
@@ -62,15 +63,13 @@ export class Timer {
                         return this[`_${prop}`];
                     },
                     set: function (value) {
-                        // if (isNaN(value) || (!isNaN(value) && value < 0))
-                        //     throw new Error(`${prop} paramter is not a number greater or equal to 0`);
                         this[`_${prop}`] = parseInt(value);
                         this.initializeTime(this.stopWatchMode || this.countdownMode);
                     }
                 });
             }
         )
-        this.initializeTime();
+        this.initializeTime(this.countdownMode);
     }
 
     initializeTime(resetToCurrentTime = true) {
@@ -91,7 +90,6 @@ export class Timer {
             // Counting up form 0 to End Time
             this._currentTime = 0;
         }
-
 
         this._currentRound = this.rounds;
         this._roundsCompleted = 0;
@@ -117,7 +115,7 @@ export class Timer {
         else {
             // CONTING UP
             this._currentTime += this.tickSize;
-            if (!this.stopWatchMode && this._currentTime >= this._roundTime) {
+            if (this._currentTime >= this._roundTime) {
                 if (this._currentRound > 0) this._currentRound--;
                 if (this._currentRound > 0) {
                     this._currentTime = this._currentTime - this._roundTime;
@@ -131,7 +129,8 @@ export class Timer {
 
     start(initializeTime = true) {
         if (this.countdownInterval === null) {
-            if (initializeTime || this.isTimerComplete) this.initializeTime();
+            this._isDone = false;
+            if (initializeTime || this.isTimerComplete) this.initializeTime(this.countdownMode);
             this._isRunning = true;
             this.countdownInterval = setInterval(() => {
                 this.tick();
@@ -150,15 +149,12 @@ export class Timer {
         this._isRunning = false;
         this.countdownInterval = null;
         if (triggerOnFinished && (this.onFinished && typeof this.onFinished === "function")) {
-            console.log("triggering on finished", this, triggerOnFinished);
             this.onFinished();
-        } else {
-            console.log("not triggering on finished", this, triggerOnFinished);
         }
     }
 
     reset() {
-        this.initializeTime();
+        this.initializeTime(this.countdownMode);
         this.intervalFunctions.forEach(func => { func(this); });
     }
 
@@ -174,7 +170,6 @@ export class Timer {
                 // COUNTING UP
                 this._currentTime = this._roundTime;
             }
-            // this._currentRound--;
 
             this.intervalFunctions.forEach(func => { func(this); });
             if (this.onFinished && typeof this.onFinished === "function") {
@@ -191,11 +186,12 @@ export class Timer {
         return this._currentTime;
     }
 
-    get rounds(){
+    get rounds() {
         return this._rounds;
     }
 
-    set rounds(value){
+    set rounds(value) {
+        if(isNaN(value) || value < 1) value = 1;
         this._rounds = parseInt(value);
         this.initializeTime();
     }
@@ -274,6 +270,10 @@ export class Timer {
         if (this.countdownMode)
             return this._currentRound === 0 && this._currentTime === 0;
         return this._currentRound === 0 && this._currentTime === this._roundTime;
+    }
+
+    get isTimerNotComplete(){
+        return !this.isTimerComplete;
     }
 
     destroy() {

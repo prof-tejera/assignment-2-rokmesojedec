@@ -66,6 +66,18 @@ body {
     --timer-font-color: #ff9200;
 }
 
+.congrats {
+    width: 300px;
+    background: $neu-bg;
+    border-radius: 25px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    text-align: center;
+    padding: 1rem 2rem;
+    margin: 5rem auto 3rem auto;
+    font-weight: bold;
+}
+
 // Generated with https://neumorphism.io/#ededed
 .timer {
     background: $neu-bg;
@@ -100,7 +112,11 @@ body {
     box-shadow: inset 12px 12px 21px #d0d0d0, inset -12px -12px 21px #f0f0f0;
 }
 
-a { span { vertical-align: middle ;}}
+a {
+    span {
+        vertical-align: middle;
+    }
+}
 .buttons-panel {
     display: flex;
     justify-content: space-between;
@@ -108,8 +124,7 @@ a { span { vertical-align: middle ;}}
     width: 400px;
     background: #e0e0e0;
     border-radius: 25px;
-    box-shadow: inset 11.41px 11.41px 15px #d4d4d4, 
-    inset -11.41px -11.41px 15px #ececec;
+    box-shadow: inset 11.41px 11.41px 15px #d4d4d4, inset -11.41px -11.41px 15px #ececec;
     padding: 1.5rem 5rem;
     .round-button {
         height: 3rem;

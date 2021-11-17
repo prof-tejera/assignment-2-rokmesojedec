@@ -1,19 +1,17 @@
 import { useContext } from "react";
 import Panel from "./../generic/Panel/Panel";
-import Button from "./../generic/Button/Button";
 import ProgressCircle from "./../generic/ProgressCircle/ProgressCircle";
 import TimeComponent from "../generic/TimeComponent/TimeComponent";
-import MatIcon from "../generic/MatIcon";
-import "./Tabata.scss";
 import TabataProvider, { TabataContext } from './context/TabataContext';
-import { PlayPauseButton } from '../../utils/helpers';
+import { ButtonsPanel, CongratsPanel } from '../../utils/helpers';
 import DisplayTime from "../generic/DisplayTime/DisplayTime";
+import "./Tabata.scss";
 
 const Tabata = () => {
 
   const { paused, start, pause, reset, fastForward, editMode, toggleEditMode,
     currentProgress, currentRound, progressRound, progressTimerB, updateRound,
-    progressTimerA, timerA, timerB } = useContext(TabataContext);
+    progressTimerA, timerA, timerB, isDone, runAgain } = useContext(TabataContext);
 
   const showComponents = {
     hours: false,
@@ -46,7 +44,8 @@ const Tabata = () => {
           <ProgressCircle progress={progressTimerB} size="sm" thickness="sm" className="tiny-timer">
             <div className="tabata-progress-wrapper">
               <span className="tabata-label">rest</span>
-              <DisplayTime timer={timerB} className="small p-t-0" readOnly={!editMode} showComponents={showComponents}
+              <DisplayTime timer={timerB} className="small p-t-0" readOnly={!editMode}
+                showComponents={showComponents}
                 triggerOnFinishedOnUnmount={false}
               ></DisplayTime>
             </div>
@@ -54,18 +53,9 @@ const Tabata = () => {
         </div>
       </div>
     </ProgressCircle>
-    <div className="buttons-panel">
-      {PlayPauseButton(paused, start, pause)}
-      <Button onButtonClick={reset}>
-        <MatIcon>restart_alt</MatIcon>
-      </Button>
-      <Button onButtonClick={fastForward}>
-        <MatIcon>fast_forward</MatIcon>
-      </Button>
-      <Button className={editMode ? "text-success" : ""} onButtonClick={toggleEditMode}>
-        <MatIcon>{editMode ? "edit_off" : "edit"}</MatIcon>
-      </Button>
-    </div>
+    {!isDone && ButtonsPanel(paused, start, pause, reset, fastForward, toggleEditMode, editMode)}
+
+    {CongratsPanel(isDone, runAgain)}
   </Panel>;
 }
 

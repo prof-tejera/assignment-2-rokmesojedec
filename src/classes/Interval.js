@@ -67,7 +67,7 @@ export class Interval {
     }
 
     get rounds() { return this._rounds; }
-    set rounds(value) { this._rounds = value; this._totalTime = null; this.reset() }
+    set rounds(value) { if(isNaN(value) || value < 1) value = 1; this._rounds = value; this._totalTime = null; this.reset() }
 
     get currentTimer() {
         const { _currentTimerIndex: index, timers } = this;
