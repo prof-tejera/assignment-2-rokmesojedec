@@ -21,6 +21,7 @@ In this assignment, we will start using the foundation we lay in A1 and make our
 - Make sure that you can switch between timers without breaking the app (e.g. I should not have to refresh in order to run another timer after a run has been completed)
 - Update documentation as your components change. 
 - Your application must be deployed and the link pasted somewhere in this README
+- Link to app http://mesojedec.io:3005/cscie39/
 
 ### Deployment Instructions (GH actions)
 
